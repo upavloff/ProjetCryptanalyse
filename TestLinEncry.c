@@ -40,11 +40,12 @@ int main(int argc, char ** argv){
 	}
 	printf("Voici Z : \n");
 	printVector(Z, n);
-	printf("Voici K : \n");
-	printVector(K, n);
+	
 	
 	int8_t *Kcalc = allocateVector(n);
 	decrypt(Kcalc,L,Z,F,n);
+	printf("Voici K : \n");
+	printVector(K, n);
 	printf("Voici K2 : \n");
 	printVector(Kcalc, n);
 	

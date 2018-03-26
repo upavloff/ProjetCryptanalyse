@@ -48,10 +48,6 @@ void copyVector( int8_t *v, int8_t *u, unsigned int m){
 /*Cette fonction prend en argument un vecteur v, un vecteur u, un entier non signe m.
 Elle copie u dans v.*/
 	unsigned int i;
-	if (!u){
-		v = NULL;
-		return;
-	}
 	for( i=0;i<m;i++){
 		v[i] = u[i];
 	}
@@ -61,10 +57,6 @@ Elle copie u dans v.*/
 void copyMatrix(int8_t *B, int8_t *A, unsigned int m, unsigned int n){
 /*Cette fonction prend en argument une matrice B, une matrice A, deux entiers non signes m et n.
 Elle copie A dans B.*/
-	if(!A){
-		B = NULL;
-		return;
-	}
 	unsigned int i,j;
 	for (i=0;i<m;i++){
 		for (j=0;j<n;j++){
@@ -376,7 +368,25 @@ void matrixSquare(int8_t *B, int8_t *A, unsigned int m, unsigned int n){
   return matrixMatrixProduct(A,matrixPowerT(matrixMatrixProduct(A,A,m,n,n),t/2,m,n),m,n,n);
 } A RECODER*/
 
+int compareVector( int8_t *v, int8_t *u, unsigned int n){
+	unsigned int i;
+	for (i = 0; i < n; i ++)
+	{
+		if (v[i]!=u[i]) return 0;
+	}
+	return 1;
+}
 
+
+int determinantMatrixTriangulaire( int8_t *A , unsigned int n){
+	unsigned int i;
+	int8_t det =1;
+	for (i = 0; i < n; i ++)
+	{
+		det *=  A[LIN(i,i,n,n)];
+	}
+	return det;
+}
 
 
 

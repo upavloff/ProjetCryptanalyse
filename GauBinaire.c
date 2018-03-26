@@ -35,7 +35,7 @@ Elle modifie A et b en appliquant l'elimination de Gauss sur A et b.*/
 			}
 			if (cpt < n){
 				changementLigneGauss(A,i,cpt,n);//changement matrice 
-				printf("changement entre la ligne %u et %u\n",i,cpt);
+				//printf("changement entre la ligne %u et %u\n",i,cpt);
 				temp = b[i];     //changement de ligne pour vecteur
 				b[i] = b[cpt];
 				b[cpt] = temp;				
@@ -49,7 +49,7 @@ Elle modifie A et b en appliquant l'elimination de Gauss sur A et b.*/
 		if (changementAvecDerniereLigne == 0){
 			for (j = i+1; j < n; j++){
 				if( A[LIN(j,i,n,n)]!= 0){   //on entre que si en dessous du pivot c'est un 1
-					printf("addition de la ligne %u sur la ligne %u\n",i,j);
+					//printf("addition de la ligne %u sur la ligne %u\n",i,j);
 					b[j] = b[j] ^ b[i];
 					for (r = i; r < n; r++){
 						A[LIN(j,r,n,n)] = A[LIN(j,r,n,n)] ^ A[LIN(i,r,n,n)];
@@ -89,15 +89,32 @@ Elle resout AX = B et modifie X.*/
 	}
 }
 
+
 void solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n){
 /*Cette fonction prend en argument une matrice A, deux vecteurs x et b, la taille n.
 Elle resout le systeme AX=B et modifie X.*/
 	int8_t *Abyss = allocateMatrix(n,n);
 	int8_t *bis = allocateVector(n);
+	int8_t *resSuppose = allocateVector(n);
+	
 	copyMatrix( Abyss,A,n,n);
 	copyVector( bis,b,n);
 	gaussianElimination(Abyss,bis,n);
+	
 	solveTriangularUpper(x,Abyss,bis,n);
+	printf("Matrice triangularise\n");
+	printMatrix(Abyss,n,n);
+	
+	matrixVectorProduct(resSuppose ,A,x,n,n );
+	
+	if (compareVector(b,resSuppose,n) && determinantMatrixTriangulaire(Abyss,n)){
+		printf("CEST BONNNNNNNNN !\n");
+	}else
+	{
+		printf("CEST PASS BONNNNNNNNN !");
+		exit(1);
+	}
+	
 	freeMatrix(Abyss);
 	freeVector(bis);
 }
