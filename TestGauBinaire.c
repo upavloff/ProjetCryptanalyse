@@ -13,14 +13,12 @@ int main (int argc, char **argv)
 	unsigned int m = 3;
 	unsigned int n = 3;
 	if (argc == 2){
-		printf("blablib\n");
 		m = (unsigned int)atoi(argv[1]);
 		n = m;
 	}
 	else if (argc == 3){
 		m = (unsigned int)atoi(argv[1]);
 		n = (unsigned int)atoi(argv[2]);
-		printf("azeertyuio\n");
 	}
 	int8_t *A = allocateMatrix(m,n);
 	int8_t *v = allocateVector(m);
@@ -31,8 +29,8 @@ int main (int argc, char **argv)
 	printf("Vecteur aleatoire v :\n");
 	randomBinVector(v,m);
 	printVector(v,m);
-	printMatrix(A,m,m);
 	solveSystemGauss(x,A,v,m);
+	
 	printf("\n Le resultat x pour A*x=v est :\n");
 	printVector(x,m);
 	/*printf("\nElimination de Gauss\n==================\n");

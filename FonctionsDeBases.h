@@ -58,7 +58,9 @@ void matrixMatrixProduct( int8_t *C, int8_t *A, int8_t *B, unsigned int m, unsig
 
 void matrixSquare(int8_t *B, int8_t *A, unsigned int m, unsigned int n);
 
+int compareVector( int8_t *v, int8_t *u, unsigned int n);
 
+int determinantMatrixTriangulaire( int8_t *A , unsigned int n);
 
 #endif
 
