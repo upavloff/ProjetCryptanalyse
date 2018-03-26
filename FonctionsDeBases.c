@@ -324,6 +324,23 @@ Et affecte au vecteur v ce produit*/
 	}
 }
 
+void vectorMatrixProduct(int8_t *v, int8_t *u, int8_t *A, unsigned int m, unsigned int n){
+/* Calcul le produit de la matrice A de taille m,n avec le vecteur u de taille n 
+Et affecte au vecteur v ce produit*/
+	unsigned int i,j;
+	int8_t resi = 0;
+	for (i = 0; i < m; i++)
+	{
+		resi = 0;
+		for (j = 0; j < n; j++)
+		{
+			resi += A[LIN(j,i,m,n)] & u[j]; 
+		}
+
+		v[i] = resi%2;
+	}
+}
+
 void matrixMatrixProduct( int8_t *C, int8_t *A, int8_t *B, unsigned int m, unsigned int n, unsigned int p){
 /*  Calcul le produit matricielle d'une matrice A de taille m,n et de la matrice B de taille n,p
 Et affecte a la matrice C de taille m,p ce produit*/ 

@@ -52,6 +52,8 @@ int8_t scalarBinProduct( int8_t* u, int8_t* v, unsigned int m);
 
 void matrixVectorProduct(int8_t *v, int8_t *A, int8_t *u, unsigned int m, unsigned int n);
 
+void vectorMatrixProduct(int8_t *v, int8_t *u, int8_t *A, unsigned int m, unsigned int n);
+
 void matrixMatrixProduct( int8_t *C, int8_t *A, int8_t *B, unsigned int m, unsigned int n, unsigned int p);
 
 void matrixSquare(int8_t *B, int8_t *A, unsigned int m, unsigned int n);
