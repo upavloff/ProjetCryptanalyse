@@ -7,16 +7,27 @@
 
 #define LIN(i,j,m,n) ((i)*(n)+(j))
 
-int8_t fonc(int8_t *KLi, int8_t *F, unsigned int n){
+void createZi(int8_t *Z, int8_t *L, int8_t *K, int8_t *F, unsigned int n){
 	 unsigned int i ;
 	 int8_t zi = 0;
-	 for(i = 0; i < n; ++i){
-   		 zi ^= KLi[i] & F[i];
-  	}
-  
-  	return zi ;
-  
+	 int8_t *KLiTemp = allocateVector(n);
+	 int8_t *KLi = allocateVector(n);
+	 copyVector(KLi,K,n);
+	 for(i = 0; i < n ; ++i){
+		vectorMatrixProduct(KLiTemp,KLi, L, n, n);
+		copyVector(KLi,KLiTemp,n);
+		printf("Voici la matrice KLi :\n");
+		printMatrix(KLi,n,n);
+		for(i = 0; i < n; ++i){
+   			zi ^= KLi[i] & F[i];
+  		}
+  		Z[i] = zi;
+	}
+	free(KLiTemp);
+	free(KLi);
+	printVector(Z,n);
 }
+
 void createSystem(int8_t* Sys, int8_t *F, int8_t* L, unsigned int n){
 	unsigned int i, j, k;
 	int8_t* Li = allocateMatrix(n,n);
@@ -25,10 +36,7 @@ void createSystem(int8_t* Sys, int8_t *F, int8_t* L, unsigned int n){
 	printMatrix(L,n,n);
 	identityMatrix(L2, n, n);
 	for(i = 0; i < n; ++i){
-		printf("i : %u\n",i);
 		matrixMatrixProduct(Li, L2, L, n, n, n);
-		printf("Li : \n");
-		printMatrix(Li,n,n);
 		for(j = 0; j < n; ++j){
 			Sys[LIN(i,j,n,n)] = 0;
 			for(k = 0; k < n; ++k){
@@ -42,11 +50,8 @@ void createSystem(int8_t* Sys, int8_t *F, int8_t* L, unsigned int n){
 	printf("debug1\n");
 	//freeMatrix(L2);
 	printf("debug2\n");
-	printf("L2 : \n");
-	printMatrix(Li,n,n);
-	freeMatrix(Li);
-	printf("debug3\n");
 
+	freeMatrix(Li);
 
 }
 void decrypt(int8_t *res, int8_t *L, int8_t *Z, int8_t *F, unsigned int n){
@@ -54,6 +59,8 @@ void decrypt(int8_t *res, int8_t *L, int8_t *Z, int8_t *F, unsigned int n){
 	createSystem(Sys, F, L, n);
 	printf("Voici le systeme lineaire : \n");
 	printMatrix(Sys,n,n);
+	printf("Qui foit un vector X doit valoir : \n");
+	printVector(Z,n);
 	solveSystemGauss(res, Sys, Z, n);
 	freeMatrix(Sys);
 }

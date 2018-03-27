@@ -309,10 +309,10 @@ Et affecte au vecteur v ce produit*/
 		resi = 0;
 		for (j = 0; j < n; j++)
 		{
-			resi += A[LIN(i,j,m,n)] & u[j]; 
+			resi ^= A[LIN(i,j,m,n)] & u[j]; 
 		}
 
-		v[i] = resi%2;
+		v[i] = resi;
 	}
 }
 
@@ -326,10 +326,10 @@ Et affecte au vecteur v ce produit*/
 		resi = 0;
 		for (j = 0; j < n; j++)
 		{
-			resi += A[LIN(j,i,m,n)] & u[j]; 
+			resi ^= A[LIN(j,i,m,n)] & u[j]; 
 		}
 
-		v[i] = resi%2;
+		v[i] = resi;
 	}
 }
 
@@ -344,9 +344,9 @@ Et affecte a la matrice C de taille m,p ce produit*/
 		{
 			resij = 0;
 			for (k = 0; k < n; k++){
-				resij += A[LIN(i,k,m,n)] & B[LIN(k,j,n,p)];
+				resij ^= A[LIN(i,k,m,n)] & B[LIN(k,j,n,p)];
 			}
-			C[LIN(i,j,m,p)] = resij%2;
+			C[LIN(i,j,m,p)] = resij;
 		}
 	}
 }
