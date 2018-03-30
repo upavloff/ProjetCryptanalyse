@@ -9,7 +9,7 @@
 int8_t *allocateVector( unsigned int m){
 /*Cette fonction prend en argument un entier non signe m.
 Elle retourne un nouveau vecteur alloue.*/
-	int8_t *vect = calloc(m,sizeof(int8_t));
+	int8_t *vect = calloc((int)m,sizeof(int8_t));
 	if(!vect){
 		printf("Erreur allocation vecteur\n");
 		exit(1);

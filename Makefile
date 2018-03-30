@@ -1,4 +1,4 @@
-GCC_FLAGS = -Wall -Werror
+GCC_FLAGS = -Wall -Werror -g
 all: TestGauBinaire TestAddEncry TestLinEncry
 
 addEncry.o	: addEncry.c

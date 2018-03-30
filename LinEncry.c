@@ -9,11 +9,11 @@
 
 void createZi(int8_t *Z, int8_t *L, int8_t *K, int8_t *F, unsigned int n){
 	 unsigned int i ;
-	 int8_t zi = 0;
 	 int8_t *KLiTemp = allocateVector(n);
 	 int8_t *KLi = allocateVector(n);
 	 copyVector(KLi,K,n);
 	 for(i = 0; i < n ; ++i){
+		zi = 0		
 		vectorMatrixProduct(KLiTemp,KLi, L, n, n);
 		copyVector(KLi,KLiTemp,n);
 		printf("Voici la matrice KLi :\n");
