@@ -9,7 +9,7 @@
 int8_t *allocateVector( unsigned int m){
 /*Cette fonction prend en argument un entier non signe m.
 Elle retourne un nouveau vecteur alloue.*/
-	int8_t *vect = calloc((int)m,sizeof(int8_t));
+	int8_t *vect = (int8_t*)calloc(m,sizeof(int8_t)+m-1);
 	if(!vect){
 		printf("Erreur allocation vecteur\n");
 		exit(1);
@@ -20,7 +20,7 @@ Elle retourne un nouveau vecteur alloue.*/
 int8_t *allocateMatrix( unsigned int m, unsigned int n){
 /*Cette fonction prend en argument deux entiers non signes m et n.
 Elle retourne une nouvelle matrice allouee.*/
-	int8_t *mat = calloc(m*n,sizeof(int8_t));
+	int8_t *mat = (int8_t*)calloc(m*n,sizeof(int8_t));
 	if(!mat){
 		printf("Erreur allocation matrice\n");
 		exit(1);
@@ -31,17 +31,13 @@ Elle retourne une nouvelle matrice allouee.*/
 void freeVector( int8_t *v){
 /*Cette fonction prend en argument un vecteur v.
 Elle libere la memoire associee a v.*/
-	if(v){
-		free(v);
-	}
+	free(v);
 }
 
 void freeMatrix( int8_t *A){
 /*Cette fonction prend en argument une matrice A.
 Elle libere la memoire associee a A.*/
-	if(A){
-		free(A);
-	}
+	free(A);
 }
 
 void copyVector( int8_t *v, int8_t *u, unsigned int m){
@@ -49,7 +45,11 @@ void copyVector( int8_t *v, int8_t *u, unsigned int m){
 Elle copie u dans v.*/
 	unsigned int i;
 	for( i=0;i<m;i++){
+		//printf("\n avant | v[%u] : %d\n",i,v[i]);
+		//printf("\n avant | u[%u] : %d\n",i,u[i]);
 		v[i] = u[i];
+		//printf("\n apres | v[%u] : %d\n",i,v[i]);
+		//printf("\n apres | u[%u] : %d\n",i,u[i]);
 	}
 	
 }
@@ -184,7 +184,9 @@ void printMatrix( int8_t *A, unsigned int m, unsigned int n){
 	unsigned int i,j;
 	printf("(");
 	for (i=0;i<m;i++){
+		//printf("\ni : %d\n",i);
 		for(j=0;j<n;j++){
+			//printf("\nj : %d\n",j);
 			if (j==n-1) printf("%d",A[LIN(i,j,m,n)]);
 			else printf("%d , ",A[LIN(i,j,m,n)]);
 		}
@@ -315,6 +317,7 @@ Et affecte au vecteur v ce produit*/
 		v[i] = resi;
 	}
 }
+
 
 void vectorMatrixProduct(int8_t *v, int8_t *u, int8_t *A, unsigned int m, unsigned int n){
 /* Calcul le produit de la matrice A de taille m,n avec le vecteur u de taille n 

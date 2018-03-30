@@ -30,7 +30,7 @@ Elle modifie A et b en appliquant l'elimination de Gauss sur A et b.*/
 		//ON regarde si on a besoin de changer de ligne, si oui on le fait
 		if (A[LIN(i,i,n,n)] == 0){
 			//changementLigneOblige = 1;
-			while(A[LIN(cpt,i,n,n)] == 0 && cpt<n){
+			while(cpt<n && A[LIN(cpt,i,n,n)]){
 				cpt++;
 			}
 			if (cpt < n){
@@ -117,6 +117,7 @@ Elle resout le systeme AX=B et modifie X.*/
 	
 	freeMatrix(Abyss);
 	freeVector(bis);
+	free(resSuppose);
 }
 
 
