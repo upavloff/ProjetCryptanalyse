@@ -9,7 +9,7 @@
 #define LIN(i,j,m,n) ((i)*(n)+(j))
 
 void createZi(int8_t *Z, int8_t *L, int8_t *K, int8_t *F, unsigned int n){
-	 unsigned int i ;
+	 unsigned int i,j;
 	 int8_t *KLiTemp = allocateVector(n);
 	 int8_t *KLi = allocateVector(n);
 	 int8_t zi;
@@ -22,8 +22,8 @@ void createZi(int8_t *Z, int8_t *L, int8_t *K, int8_t *F, unsigned int n){
 		copyVector(KLi,KLiTemp,n);
 		printf("Voici la matrice KLi :\n");
 		printMatrix(KLi,n,n);
-		for(i = 0; i < n; ++i){
-   			zi ^= KLi[i] & F[i];
+		for(j = 0; j < n; ++j){
+   			zi ^= KLi[j] & F[j];
   		}
   		Z[i] = zi;
   		

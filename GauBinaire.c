@@ -30,7 +30,7 @@ Elle modifie A et b en appliquant l'elimination de Gauss sur A et b.*/
 		//ON regarde si on a besoin de changer de ligne, si oui on le fait
 		if (A[LIN(i,i,n,n)] == 0){
 			//changementLigneOblige = 1;
-			while(A[LIN(cpt,i,n,n)] == 0 && cpt<n){
+			while(cpt<n && A[LIN(cpt,i,n,n)] == 0){
 				cpt++;
 			}
 			if (cpt < n){
@@ -94,54 +94,42 @@ void solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n){
 Elle resout le systeme AX=B et modifie X.*/
 	int8_t *Abyss = allocateMatrix(n,n);
 	int8_t *bis = allocateVector(n);
+	int8_t *resSuppose = allocateVector(n);
+	
 	copyMatrix( Abyss,A,n,n);
 	copyVector( bis,b,n);
 	gaussianElimination(Abyss,bis,n);
-	printf("Voici la matrice gauBer\n");
+	printf("Matrice triangularise\n");
 	printMatrix(Abyss,n,n);
+	if(determinantMatrixTriangulaire(Abyss,n)==0){
+		printf("Matrice non inversible, pas de resultat.\n");
+		freeMatrix(Abyss);
+		freeVector(bis);
+		free(resSuppose);
+		exit(1);
+	}
 	solveTriangularUpper(x,Abyss,bis,n);
-	printf("Voici la matrice triangulaire\n");
-	printMatrix(Abyss,n,n);
+	printf("Vecteur x : \n");
+	printVector(x,n);
+	
+	matrixVectorProduct(resSuppose,A,x,n,n );
+	
+	if (compareVector(b,resSuppose,n)){
+		printf("On retrouve bien A*x = b!\n");
+	}
+	else{
+		printf("Determinant non nul, mais A*x !=b : ERREUR de code!\n");
+		freeMatrix(Abyss);
+		freeVector(bis);
+		free(resSuppose);
+		exit(1);
+	}
+	
 	freeMatrix(Abyss);
 	freeVector(bis);
+	free(resSuppose);
 }
 
-int main (int argc, char **argv)
-{	
-	srand(time(NULL));
-	unsigned int m = 3;
-	unsigned int n = 3;
-	if (argc == 2){
-		printf("blablib\n");
-		m = (unsigned int)atoi(argv[1]);
-		n = m;
-	}
-	else if (argc == 3){
-		m = (unsigned int)atoi(argv[1]);
-		n = (unsigned int)atoi(argv[2]);
-		printf("azeertyuio\n");
-	}
-	int8_t *A = allocateMatrix(m,n);
-	int8_t *v = allocateVector(m);
-	int8_t *x = allocateVector(m);
-	printf("\nMatrice de depart A aleatoire :\n");
-	randomMatrix(A,m,n);
-	printMatrix(A,m,n);
-	printf("Vecteur aleatoire v :\n");
-	randomVector(v,m);
-	printVector(v,m);
-	resizeMatrix(A,m,n);
-	printMatrix(A,m,m);
-	solveSystemGauss(x,A,v,m);
-	printf("\n Le resultat x pour A*x=v est :\n");
-	printVector(x,m);
-	/*printf("\nElimination de Gauss\n==================\n");
-	gaussianElimination(A,v,m);
-	printMatrix(A,m,m);
-	printVector(v,m);
-	printf("\nRemonter des pivots\n==================\n");
-	solveTriangularUpper(x,A,v,m);
-	printMatrix(A,m,m);
-	printf("Vecteur x tel que A*x = v\n");*/
-	return 0;	
-}
+
+
+
