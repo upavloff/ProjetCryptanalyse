@@ -89,7 +89,7 @@ Elle resout AX = B et modifie X.*/
 	}
 }
 
-void solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n){
+int solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n){
 /*Cette fonction prend en argument une matrice A, deux vecteurs x et b, la taille n.
 Elle resout le systeme AX=B et modifie X.*/
 	int8_t *Abyss = allocateMatrix(n,n);
@@ -106,7 +106,7 @@ Elle resout le systeme AX=B et modifie X.*/
 		freeMatrix(Abyss);
 		freeVector(bis);
 		free(resSuppose);
-		exit(1);
+		return 0;
 	}
 	solveTriangularUpper(x,Abyss,bis,n);
 	printf("Vecteur x : \n");
@@ -122,12 +122,13 @@ Elle resout le systeme AX=B et modifie X.*/
 		freeMatrix(Abyss);
 		freeVector(bis);
 		free(resSuppose);
-		exit(1);
+		return 0;
 	}
 	
 	freeMatrix(Abyss);
 	freeVector(bis);
 	free(resSuppose);
+	return 1;
 }
 
 

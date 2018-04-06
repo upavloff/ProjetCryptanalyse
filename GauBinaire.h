@@ -14,6 +14,6 @@ void gaussianElimination( int8_t *A, int8_t *b, unsigned int n);
 
 void solveTriangularUpper(int8_t *x, int8_t *A, int8_t *b, unsigned int n);
 
-void solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n);
+int solveSystemGauss( int8_t *x, int8_t *A, int8_t *b, unsigned int n);
 
 #endif
