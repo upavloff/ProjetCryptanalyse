@@ -45,7 +45,7 @@ void createSystem(int8_t* Sys, int8_t *F, int8_t* L, unsigned int n){
 		for(j = 0; j < n; ++j){
 			Sys[LIN(i,j,n,n)] = 0;
 			for(k = 0; k < n; ++k){
-				Sys[LIN(i,j,n,n)] ^= F[k] & Li[LIN(k,j,n,n)];
+				Sys[LIN(i,j,n,n)] ^= F[k] & Li[LIN(j,k,n,n)];
 			}
 		}
 		copyMatrix(L2, Li, n, n);
