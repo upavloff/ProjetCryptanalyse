@@ -17,15 +17,13 @@ void createZi(int8_t *Z, int8_t *L, int8_t *K, int8_t *Q, int8_t *L2, int8_t C, 
 	 int8_t L2KLi;
 	 copyVector(KLi,K,n);
 	 for(i = 0; i < n ; i++){
-		printf("Calcul de K*(L^%u)...\n",i+1);
 		vectorMatrixProduct(KLiTemp,KLi,L,n,n);
 		copyVector(KLi,KLiTemp,n);
-		printf("Calcul de K*(L^%u)*Q...\n",i+1);
 		vectorMatrixProduct(KLiQ,KLi,Q,n,n);
-		printf("Calcul de K*(L^%u)*Q*K*(L^%u)^t...\n",i+1,i+1);
 		KLiQKLi = scalarBinProduct(KLiQ,KLi,n);
-		printf("Calcul de L'*K*(L^%u)...\n",i+1);
+		printf("Voici KLiQKLi : %"PRId8"\n",KLiQKLi);
 		L2KLi = scalarBinProduct(L2,KLi,n);
+		printf("Voici L2KLi : %"PRId8"\n",L2KLi);
   		Z[i] = KLiQKLi^L2KLi^C;
   		
 	}

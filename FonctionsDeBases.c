@@ -296,9 +296,9 @@ int8_t scalarBinProduct( int8_t* u, int8_t* v, unsigned int m){
 	unsigned int i;
 	int8_t res = 0;
 	for(i = 0; i < m; ++i){
-		res += u[i] & v[i];
+		res ^= u[i] & v[i];
 	}
-	return res%2;
+	return res;
 }
 
 void matrixVectorProduct(int8_t *v, int8_t *A, int8_t *u, unsigned int m, unsigned int n){
